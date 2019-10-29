@@ -10,4 +10,4 @@ At first, you're confronted with the welcome screen, where you're supposed to en
 
 1. Clone this repository.
 2. Run the MarvellOS.py file.
-3. Initially enter 0000 as the password, which can be changed later.
+3. Initially enter *0000* as the password, which can be changed later.
