@@ -1,18 +1,13 @@
 import math
 from time import *
 import threading
-from os import system,name
 import turtle
 from threading import Thread
 from Tkinter import *
 
-def clear():   
-      if name == 'nt': 
-        a = system('cls') 
-print "Initializing..."
 
-f=open("password.txt",'r+')
-f2=open("background.txt",'r+')
+f=open("password.txt",'r+')             #password file
+f2=open("background.txt",'r+')           #bg color file
 background=f2.readline()
 password=f.readline()
 f.close()
@@ -22,6 +17,8 @@ home_screen=None
 home=None
 tries=6
 truth=True
+
+"""Real time Clock"""
 ddate=asctime().split()
 day=ddate[0]+" "+ddate[1]+" "+ddate[2]
 time1 = ''
@@ -43,7 +40,6 @@ def tick():
     if newday[0]=="00" and newday[1]=="00":
         ddate=asctime().split()
         day=ddate[0]+" "+ddate[1]+" "+ddate[2]
-
     if time2 != time1:
         time1 = time2
         clock.config(text=day+"      "+time2+"  ")
@@ -55,21 +51,34 @@ def tick():
     else:
         welcome_screen.after_cancel(AFTER)
 
-"""Function to open WELCOME SCREEN"""
-def main(o=""):
+"""Function to open WELCOME SCREEN - Login screen that opens when you run."""
+def welcome(o=""):
     global clock
     global welcome_screen
     global home_screen
     global truth
     truth=True
     global home
-    if o<>"f":
+    if o!="f":
         home.after_cancel(Home.AFTER)
         home.destroy()
-    def lala():
+
+    """Show button function"""
+    def show():
+        global sh
+        if sh==False:
+            e["show"]=""
+            sh=True
+        elif sh==True:
+            e["show"]="*"
+            sh=False
+
+    def try_again():
         output_label["text"]="Try again."
         confirmbtn["bg"]="cyan"
         confirmbtn["state"]="normal"
+
+    """Confirm button function"""
     def confirm():
         global welcome_screen
         global password
@@ -83,12 +92,13 @@ def main(o=""):
             truth=False
             welcome_screen.after_cancel(AFTER)
             clock=None
+            """Argument "y" tells that welcome screen exists and needs to be destroyed"""
             home_screen=Home("y")
-        elif p<>password:
+        elif p!=password:
             tries-=1
             output_label.place(x=0,y=320)
             output_label["text"]="Incorrect password, "+str(tries)+" tries remaining"
-            if p<>"":
+            if p!="":
                 e.delete(0,END)
             e.focus_set()
             if tries==0:
@@ -96,18 +106,10 @@ def main(o=""):
                 tries=6
                 confirmbtn["bg"]="black"
                 confirmbtn["state"]="disabled"
-                t = threading.Timer(30.0,lala)
+                t = threading.Timer(30.0,try_again)
                 t.start()
-    def show():
-        global sh
-        if sh==False:
-            e["show"]=""
-            sh=True
-        elif sh==True:
-            e["show"]="*"
-            sh=False
 
-    welcome_screen=Tk()                                                                                                        #welcome screen   
+    welcome_screen=Tk()                                                                                                        #welcome screen
     truth=True
     welcome_screen.geometry("325x400")
     welcome_screen.title('MarvellOS')
@@ -134,7 +136,6 @@ def main(o=""):
 
     inf=Label(welcome_screen,text=t,bg=background,fg="red",font=("Century",10,"bold"))
     inf.place(x=10,y=355)
-    clear()   
     """Clock on the home screen"""
     global clock
     clock = Label(welcome_screen,font=("TIMES NEW ROMAN",10),anchor="e", bg='black',fg="white",width=46,height=2)                     #clock label
@@ -145,27 +146,18 @@ def main(o=""):
         except:
             welcome_screen.after_cancel(tick)
 
-
     welcome_screen.mainloop()
 
 
-
 class Home():
-    """This is the class which makes the app grid screen"""
+    """This is the class which makes the app grid screen - If you log in with correct password"""
     AFTER=None
     def __init__(self,a=""):
         global truth
         global background
         global home
-        global clock
         global welcome_screen
-        self.ddate=asctime().split()
-        self.day=self.ddate[0]+" "+self.ddate[1]+" "+self.ddate[2]
-        self.time1 = ''
-        self.clock=None
-        global truth
-        if truth:
-            welcome_screen.after_cancel(tick)
+        self.time1=''
         self.a=a
         home=Tk()
         home.title('home')
@@ -185,7 +177,7 @@ class Home():
             welcome_screen=None
         else:
             pass
-
+        """App buttons"""
         sett=Button(home,text="Settings", height=5, bg="sky blue", fg="brown", width=10, font=("Bahnschrift",12),command=self.settings)                                         #settings button
         sett.place(x=2,y=100)
         calcbtn=Button(home,text="Calculator",height=5, width=10,bg="grey",fg="black", font=("Bahnschrift",12),command=self.calc)                                                       #calculator button
@@ -198,11 +190,12 @@ class Home():
         click.place(x=112,y=250)
         sample=Button(home,text="Sample \n Pictures", height=5, width=10, bg="red", fg="yellow", font=("Bahnschrift",12),command=self.sample)                                                       #sample pictures button
         sample.place(x=222,y=250)
-        lock=Button(home, text="LOCK",bg="black",fg="yellow",command=main)                                                                                                                                          #lock button
+        lock=Button(home, text="LOCK",bg="black",fg="yellow",command=welcome)                                                                                                                                          #lock button
         lock.place(x=143,y=368)
 
         home.mainloop()
 
+    """Clock"""
     def tick1(self):
         global home
         time2=strftime('%H:%M')
@@ -210,7 +203,6 @@ class Home():
         if newday[0]=="00" and newday[1]=="00":
             self.ddate=asctime().split()
             self.day=self.ddate[0]+" "+self.ddate[1]+" "+self.ddate[2]
-
         if time2 != self.time1:
             self.time1 = time2
             self.clock.config(text=day+"      "+time2+"  ")
@@ -218,6 +210,12 @@ class Home():
             Home.AFTER=home.after(200, self.tick1)
         except:
             home.after_cancel(Home.AFTER)
+
+        self.ddate=asctime().split()
+        self.day=self.ddate[0]+" "+self.ddate[1]+" "+self.ddate[2]
+        global truth
+        if truth:
+            welcome_screen.after_cancel(tick)
 
     def settings(self):
         """Called when Settings button is pressed"""
@@ -252,7 +250,7 @@ class Home():
         self.sv=Button(self.setwin,text="Save",command=save1,bg="cyan",fg="black")
         self.sv.place(x=140,y=235)
 
-
+    """NOT WORKING ON SOME DEVICES"""
     def click_game(self):
         """Calls when click button is pressed"""
         global background
@@ -268,12 +266,12 @@ class Home():
         self.bt2=Button(self.clickwin,text="Start timer", height="3",width="8", command=self.timer)
         self.bt2.config(bg="red")
         self.bt2.pack()
-        self.tt=Entry(self.clickwin)
+        self.tt=Label(self.clickwin)
         self.tt.pack()
         self.bt=Button(self.clickwin,text="CLICK!", height="10",width="20",state=DISABLED,command=self.number)
         self.bt.config(bg="yellow")
         self.bt.pack()
-        self.ans=Entry(self.clickwin)
+        self.ans=Label(self.clickwin)
         self.ans.pack()
         self.res=Label(self.clickwin, text="                                   ")
         self.res.config(bg="dark green", fg=background,font=("arial narrow",15))
@@ -294,17 +292,15 @@ class Home():
         self.func1()
     def number(self):
         self.n+=1
-        self.ans.insert(0,self.n)
-        self.ans.insert(0,"                     ")
+        self.ans.config(text=self.n)
     def reset(self):
         self.homebtn.config(state='normal')
         self.bt2.config(state='normal')
         self.bt.config(state=DISABLED)
         self.res["text"]="                        "
-        self.ans.insert(0,"                                               ")
-        self.ans.insert(0,"                     0")
+        self.ans.config(text="0")
         self.n=0
-        self.tt.insert(0,"                       Reset")
+        self.tt.config(text="Reset")
 
     def func1(self):
         try:
@@ -314,11 +310,10 @@ class Home():
             pass
     def func2(self):
         for i in range(0,10):
-            self.tt.insert(0,10-i)
-            self.tt.insert(0,"                     ")
+            self.tt.config(text=10-i)
             sleep(1)
         self.bt.config(state=DISABLED)
-        self.tt.insert(0,"        Time up")
+        self.tt.config(text="Time up")
         self.bt3.config(state='normal')
         if self.n<50:
             self.res["text"]=str(self.n)+" clicks in 10 seconds: Bad clicker!"
@@ -328,7 +323,6 @@ class Home():
             self.res["text"]=str(self.n)+" clicks in 10 seconds: Master clicker!"
         elif self.n>=70:
             self.res["text"]=str(self.n)+" clicks in 10 seconds: Clicking god!"
-
 
     def notepad(self):
         """Called when notepad button is pressed"""
@@ -358,7 +352,7 @@ class Home():
         f=open("notes.txt","w")
         f.write(self.text)
         f.close()
-        
+
     def sample(self):
         """Called when Sample pictures button is pressed"""
         global background
@@ -430,7 +424,6 @@ class Home():
         elif self.i==10:
             self.img = PhotoImage(file="sample10.gif")
         self.pics["image"]=self.img
-
 
     def design(self):
         """Called when Designs button is pressed"""
@@ -548,8 +541,6 @@ class Home():
             self.t.pendown()
             self.t.right(2)
 
-
-
     def calc(self):
         """Called when Calculator button is pressed"""
         try:
@@ -610,8 +601,6 @@ class Home():
             self.ans["text"]="Invalid Input "
         except OverflowError as e:
             self.ans["text"]="Out of range"
-
-
     try:
         def plus(self):
             self.a=self.num.get()
@@ -663,7 +652,6 @@ class Home():
                 self.ans["text"]="Invalid Input "
             except OverflowError as e:
                 self.ans["text"]="Out of range"
-
         def power(self):
             self.a=self.num.get()
             self.num.delete(0,END)
@@ -682,8 +670,6 @@ class Home():
                 self.ans["text"]="Invalid Input "
             except OverflowError as e:
                 self.ans["text"]="Out of range"
-
-
         def cos(self):
             try:
                 self.a=float(self.num.get())/57.2958
@@ -697,7 +683,6 @@ class Home():
                 self.ans["text"]="Invalid Input "
             except OverflowError as e:
                 self.ans["text"]="Out of range"
-
         def tan(self):
             try:
                 self.a=float(self.num.get())/57.2958
@@ -711,13 +696,12 @@ class Home():
                 self.ans["text"]="Invalid Input "
             except OverflowError as e:
                 self.ans["text"]="Out of range"
-
         def c(self):
+            """clear button for calculator"""
             self.a=0
             self.b=0
             self.num.delete(0,END)
             self.ans["text"]=""
-
         def equal(self):
             try:
                 self.b=self.num.get()
@@ -745,9 +729,8 @@ class Home():
                         self.ans["text"]=self.an
                     else:
                         self.ans["text"]="Out of Range"
-
                 elif self.operator=="/":
-                    if float(self.b)<>0:
+                    if float(self.b)!=0:
                         self.an=str(float(self.a)/float(self.b))
                         if len(self.an)<17:
                             self.ans["text"]=self.an
@@ -761,7 +744,6 @@ class Home():
                 self.ans["text"]="Invalid Input "
             except OverflowError as e:
                 self.ans["text"]="Out of range"
-
     except ValueError as e:
         self.ans["text"]="Invalid Input "+e.message
     except TypeError as e:
@@ -769,6 +751,7 @@ class Home():
     except OverflowError as e:
                 self.ans["text"]="Out of range"
 
+    """Changing password"""
     def next(self):
             global password
             if self.co==1:
@@ -781,7 +764,7 @@ class Home():
                     self.ent.delete(0,END)
                     self.ent.focus_set()
                     self.l["text"]="Enter new password:"
-                elif self.prev<>password:
+                elif self.prev!=password:
                     self.k["text"]="Incorrect password, cannot change."
                     self.k.place(x=0,y=260)
                     self.next["text"]="Retry"
@@ -814,7 +797,6 @@ class Home():
                     self.ent.delete(0,END)
                     self.ent.focus_set()
                     self.co=1
-
 
     def change_password(self):
         """Called when Change password button is pressed"""
@@ -879,4 +861,4 @@ class Home():
         self.setwin.destroy()
         home_screen=Home()
 
-main(o="f")
+welcome(o="f")
