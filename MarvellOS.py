@@ -6,8 +6,8 @@ from threading import Thread
 from Tkinter import *
 
 
-f=open("password.txt",'r+')             #password file
-f2=open("background.txt",'r+')           #bg color file
+f=open("data/password.txt",'r+')             #password file
+f2=open("data/background.txt",'r+')           #bg color file
 background=f2.readline()
 password=f.readline()
 f.close()
@@ -244,7 +244,7 @@ class Home():
         def save1():
             global background
             background=self.var.get()
-            f2=open("background.txt","w")
+            f2=open("data/background.txt","w")
             f2.write(background)
             f2.close()
         self.sv=Button(self.setwin,text="Save",command=save1,bg="cyan",fg="black")
@@ -328,7 +328,7 @@ class Home():
         """Called when notepad button is pressed"""
         global background
         self.notepad=Tk()
-        f=open("notes.txt","r+")
+        f=open("data/notes.txt","r+")
         t=f.read()
         self.notepad.lift()
         self.notepad.attributes('-topmost', True)
@@ -349,7 +349,7 @@ class Home():
 
     def save(self):
         self.text=self.notes.get(0.0,END)
-        f=open("notes.txt","w")
+        f=open("data/notes.txt","w")
         f.write(self.text)
         f.close()
 
@@ -366,7 +366,7 @@ class Home():
         self.samwin.config(bg="black")
         self.homebtn=Button(self.samwin,text="HOME", bg="white",fg="black",command=self.home_button6)
         self.homebtn.place(x=140,y=370)
-        self.img=PhotoImage(file="sample1.gif")
+        self.img=PhotoImage(file="sample_pictures/sample1.gif")
         self.pics=Label(self.samwin, width = 325, image=self.img, bg="black", height = 300)
         self.pics.place(x=0,y=0)
         self.nxt=Button(self.samwin,text=">", bg="yellow", font=("Bauhaus 93",20),command=self.nxt)
@@ -378,51 +378,51 @@ class Home():
         self.i+=1
         self.bck["state"]="normal"
         if self.i==1:
-            self.img = PhotoImage(file="sample1.gif")
+            self.img = PhotoImage(file="sample_pictures/sample1.gif")
         elif self.i==2:
-            self.img = PhotoImage(file="sample2.gif")
+            self.img = PhotoImage(file="sample_pictures/sample2.gif")
         elif self.i==3:
-            self.img = PhotoImage(file="sample3.gif")
+            self.img = PhotoImage(file="sample_pictures/sample3.gif")
         elif self.i==4:
-            self.img = PhotoImage(file="sample4.gif")
+            self.img = PhotoImage(file="sample_pictures/sample4.gif")
         elif self.i==5:
-            self.img = PhotoImage(file="sample5.gif")
+            self.img = PhotoImage(file="sample_pictures/sample5.gif")
         elif self.i==6:
-            self.img = PhotoImage(file="sample6.gif")
+            self.img = PhotoImage(file="sample_pictures/sample6.gif")
         elif self.i==7:
-            self.img = PhotoImage(file="sample7.gif")
+            self.img = PhotoImage(file="sample_pictures/sample7.gif")
         elif self.i==8:
-            self.img = PhotoImage(file="sample8.gif")
+            self.img = PhotoImage(file="sample_pictures/sample8.gif")
         elif self.i==9:
-            self.img = PhotoImage(file="sample9.gif")
+            self.img = PhotoImage(file="sample_pictures/sample9.gif")
         elif self.i==10:
-            self.img = PhotoImage(file="sample10.gif")
+            self.img = PhotoImage(file="sample_pictures/sample10.gif")
             self.nxt["state"]=DISABLED
         self.pics["image"]=self.img
     def bck(self):
         self.i-=1
         self.nxt["state"]="normal"
         if self.i==1:
-            self.img = PhotoImage(file="sample1.gif")
+            self.img = PhotoImage(file="sample_pictures/sample1.gif")
             self.bck["state"]=DISABLED
         elif self.i==2:
-            self.img = PhotoImage(file="sample2.gif")
+            self.img = PhotoImage(file="sample_pictures/sample2.gif")
         elif self.i==3:
-            self.img = PhotoImage(file="sample3.gif")
+            self.img = PhotoImage(file="sample_pictures/sample3.gif")
         elif self.i==4:
-            self.img = PhotoImage(file="sample4.gif")
+            self.img = PhotoImage(file="sample_pictures/sample4.gif")
         elif self.i==5:
-            self.img = PhotoImage(file="sample5.gif")
+            self.img = PhotoImage(file="sample_pictures/sample5.gif")
         elif self.i==6:
-            self.img = PhotoImage(file="sample6.gif")
+            self.img = PhotoImage(file="sample_pictures/sample6.gif")
         elif self.i==7:
-            self.img = PhotoImage(file="sample7.gif")
+            self.img = PhotoImage(file="sample_pictures/sample7.gif")
         elif self.i==8:
-            self.img = PhotoImage(file="sample8.gif")
+            self.img = PhotoImage(file="sample_pictures/sample8.gif")
         elif self.i==9:
-            self.img = PhotoImage(file="sample9.gif")
+            self.img = PhotoImage(file="sample_pictures/sample9.gif")
         elif self.i==10:
-            self.img = PhotoImage(file="sample10.gif")
+            self.img = PhotoImage(file="sample_pictures/sample10.gif")
         self.pics["image"]=self.img
 
     def design(self):
@@ -760,7 +760,7 @@ class Home():
                 self.k["text"]="                      "
                 if self.prev==password:
                     self.co=2
-                    self.f=open("password.txt","r+")
+                    self.f=open("data/password.txt","r+")
                     self.ent.delete(0,END)
                     self.ent.focus_set()
                     self.l["text"]="Enter new password:"
@@ -781,7 +781,7 @@ class Home():
             elif self.co==3:
                 self.confirm=self.ent.get()
                 if self.new_p==self.confirm:
-                    self.f=open("password.txt","w")
+                    self.f=open("data/password.txt","w")
                     self.f.write(self.confirm)
                     self.f.close()
                     self.ent.delete(0,END)
