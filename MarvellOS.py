@@ -6,10 +6,12 @@ from threading import Thread
 from Tkinter import *
 
 
-f=open("data/password.txt",'r+')             #password file
+f=open("data/password.txt",'rb+')             #password file
 f2=open("data/background.txt",'r+')           #bg color file
 background=f2.readline()
-password=f.readline()
+encodedPassword=f.readline()
+password = encodedPassword.decode('base64','strict')
+
 f.close()
 f2.close()
 
@@ -781,8 +783,8 @@ class Home():
             elif self.co==3:
                 self.confirm=self.ent.get()
                 if self.new_p==self.confirm:
-                    self.f=open("data/password.txt","w")
-                    self.f.write(self.confirm)
+                    self.f=open("data/password.txt","wb")
+                    self.f.write(self.confirm.encode('base64','strict'))
                     self.f.close()
                     self.ent.delete(0,END)
                     password=self.confirm
