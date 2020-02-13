@@ -3,14 +3,15 @@ from time import *
 import threading
 import turtle
 from threading import Thread
-from Tkinter import *
+from tkinter import *
+import base64
 
 
 f=open("data/password.txt",'rb+')             #password file
 f2=open("data/background.txt",'r+')           #bg color file
 background=f2.readline()
 encodedPassword=f.readline()
-password = encodedPassword.decode('base64','strict')
+password = base64.b64decode(encodedPassword).decode('utf-8')
 
 f.close()
 f2.close()
@@ -784,7 +785,7 @@ class Home():
                 self.confirm=self.ent.get()
                 if self.new_p==self.confirm:
                     self.f=open("data/password.txt","wb")
-                    self.f.write(self.confirm.encode('base64','strict'))
+                    self.f.write(base64.b64encode(self.confirm.encode()))
                     self.f.close()
                     self.ent.delete(0,END)
                     password=self.confirm
