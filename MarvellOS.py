@@ -82,7 +82,7 @@ def welcome(o=""):
         confirmbtn["state"]="normal"
 
     """Confirm button function"""
-    def confirm():
+    def confirm(event=None):
         global welcome_screen
         global password
         global tries
@@ -117,12 +117,17 @@ def welcome(o=""):
     welcome_screen.geometry("325x400")
     welcome_screen.title('MarvellOS')
     welcome_screen.config(bg=background)
+
     title_label=Label(welcome_screen,text="MarvellOS",bg=background,fg="dark blue",font=("Curlz MT",35))
     title_label.place(x=70,y=100)
+
     shbtn=Button(welcome_screen,text="Show",bg="light blue",fg="black",font=("Agency",8),command=show)
-    shbtn.place(x=255,y=240)
+    shbtn.place(x=265,y=237)
+
     confirmbtn=Button(welcome_screen,text="Confirm",bg="cyan",fg="black",font=("Arial black",9),command=confirm, width=20,height=2)                              #confirm button
     confirmbtn.place(x=71,y=263)
+    welcome_screen.bind("<Return>", confirm) #Binding Enter key for login confirmation
+
     welcome_frame=Frame(welcome_screen, relief=RIDGE, borderwidth=2)
     welcome_frame.pack()
 
@@ -130,7 +135,7 @@ def welcome(o=""):
     enterpass.place(x=96,y=215)
     e=Entry(welcome_screen,show="*",width=30)
     e.focus_set()                                                                                                                            #password entry field
-    e.place(x=60,y=240)
+    e.place(x=45,y=240)
 
     output_label=Label(welcome_screen,bg="red",fg="black",width=41,font=("Calibri",12))              #output label
 
