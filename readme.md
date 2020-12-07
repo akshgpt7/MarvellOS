@@ -4,6 +4,7 @@
 <hr>
 
 [![Stars](https://img.shields.io/github/stars/akshgpt7/MarvellOS?style=flat&logo=reverbnation)](hhttps://github.com/akshgpt7/MarvellOS/stargazers)
+[![Forks](https://img.shields.io/github/forks/akshgpt7/MarvellOS?style=flat&logo=github)](https://github.com/akshgpt7/MarvellOS/network/members)
 [![Telegram](https://badgen.net/badge/icon/telegram/cyan?icon=telegram&label)](https://t.me/joinchat/N4E6lxS83nZ3YmiaNMkZrg)
 
 <hr>
