@@ -1,4 +1,11 @@
+<div align="center">
+
 # MarvellOS
+<hr>
+[![Stars](https://img.shields.io/github/stars/akshgpt7/MarvellOS?style=flat&logo=reverbnation)](hhttps://github.com/akshgpt7/MarvellOS/stargazers)
+[![Telegram](https://badgen.net/badge/icon/telegram/cyan?icon=telegram&label)](https://t.me/joinchat/N4E6lxS83nZ3YmiaNMkZrg)
+<hr>
+</div>
 
 ## About
 This is a basic operating system mock-up made from python GUI module tkinter.
