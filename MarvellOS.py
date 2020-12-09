@@ -295,6 +295,7 @@ class Home():
         home.destroy()
         self.homebtn=Button(self.clickwin,text="HOME", bg="black",fg="white",command=self.home_button4)
         self.homebtn.place(x=140,y=370)
+        self.clickwin.mainloop()
 
     def timer(self):
         self.bt2.config(state=DISABLED)
