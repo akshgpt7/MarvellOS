@@ -6,6 +6,7 @@ from threading import Thread
 from tkinter import *
 import base64
 
+WINDOW_DIM = "325x400"
 
 f=open("data/password.txt",'rb+')             #password file
 f2=open("data/background.txt",'r+')           #bg color file
@@ -114,7 +115,7 @@ def welcome(o=""):
 
     welcome_screen=Tk()                                                                                                        #welcome screen
     truth=True
-    welcome_screen.geometry("325x400")
+    welcome_screen.geometry(WINDOW_DIM)
     welcome_screen.resizable(False,False)
     welcome_screen.title('MarvellOS')
     welcome_screen.config(bg=background)
@@ -170,7 +171,7 @@ class Home():
         self.a=a
         home=Tk()
         home.title('home')
-        home.geometry("325x400")
+        home.geometry(WINDOW_DIM)
         home.resizable(False,False)
         home.config(bg=background)
         home.lift()
@@ -233,7 +234,7 @@ class Home():
         self.setwin=Tk()
         self.setwin.lift()
         self.setwin.attributes('-topmost', True)
-        self.setwin.geometry("325x400")
+        self.setwin.geometry(WINDOW_DIM)
         self.setwin.resizable(False,False)
         self.homebtn=Button(self.setwin,text="HOME", bg="black",fg="white",command=self.home_button7)
         self.homebtn.place(x=140,y=370)
@@ -268,7 +269,7 @@ class Home():
         self.clickwin=Tk()
         self.clickwin.lift()
         self.clickwin.attributes('-topmost', True)
-        self.clickwin.geometry("325x400")
+        self.clickwin.geometry(WINDOW_DIM)
         self.clickwin.resizable(False,False)
         self.n=0
         self.clickwin.config(bg="cyan")
@@ -345,7 +346,7 @@ class Home():
         t=f.read()
         self.notepad.lift()
         self.notepad.attributes('-topmost', True)
-        self.notepad.geometry("325x400")
+        self.notepad.geometry(WINDOW_DIM)
         self.notepad.resizable(False,False)
         self.notepad.config(bg="purple")
         global home
@@ -376,7 +377,7 @@ class Home():
         self.samwin=Tk()
         self.samwin.lift()
         self.samwin.attributes('-topmost', True)
-        self.samwin.geometry("325x400")
+        self.samwin.geometry(WINDOW_DIM)
         self.samwin.resizable(False,False)
         self.samwin.config(bg="black")
         self.homebtn=Button(self.samwin,text="HOME", bg="white",fg="black",command=self.home_button6)
@@ -445,7 +446,7 @@ class Home():
         self.deswin=Tk()
         self.deswin.lift()
         self.deswin.attributes('-topmost', True)
-        self.deswin.geometry("325x400")
+        self.deswin.geometry(WINDOW_DIM)
         self.deswin.resizable(False,False)
         self.deswin.config(bg="black")
         global home
@@ -469,7 +470,7 @@ class Home():
         self.deswin=Tk()
         self.deswin.lift()
         self.deswin.attributes('-topmost', True)
-        self.deswin.geometry("325x400")
+        self.deswin.geometry(WINDOW_DIM)
         self.deswin.config(bg="yellow")
         self.deswin.resizable(False,False)
         self.homebtn=Button(self.deswin,text="HOME", bg="black",fg="white",command=self.home_button2)
@@ -490,7 +491,7 @@ class Home():
         self.deswin=Tk()
         self.deswin.lift()
         self.deswin.attributes('-topmost', True)
-        self.deswin.geometry("325x400")
+        self.deswin.geometry(WINDOW_DIM)
         self.deswin.resizable(False,False)
         self.deswin.config(bg="yellow")
         self.homebtn=Button(self.deswin,text="HOME", bg="black",fg="white",command=self.home_button2)
@@ -519,7 +520,7 @@ class Home():
         self.deswin=Tk()
         self.deswin.lift()
         self.deswin.attributes('-topmost', True)
-        self.deswin.geometry("325x400")
+        self.deswin.geometry(WINDOW_DIM)
         self.deswin.resizable(False,False)
         self.deswin.config(bg="yellow")
         self.homebtn=Button(self.deswin,text="HOME", bg="black",fg="white",command=self.home_button2)
@@ -540,7 +541,7 @@ class Home():
         self.deswin=Tk()
         self.deswin.lift()
         self.deswin.attributes('-topmost', True)
-        self.deswin.geometry("325x400")
+        self.deswin.geometry(WINDOW_DIM)
         self.deswin.resizable(False,False)
         self.deswin.config(bg="yellow")
         self.homebtn=Button(self.deswin,text="HOME", bg="black",fg="white",command=self.home_button2)
@@ -568,7 +569,7 @@ class Home():
             self.calcwin=Tk()
             self.calcwin.lift()
             self.calcwin.attributes('-topmost', True)
-            self.calcwin.geometry("325x400")
+            self.calcwin.geometry(WINDOW_DIM)
             self.calcwin.resizable(False,False)
             self.calcwin.config(bg=background)
             global home
@@ -825,7 +826,7 @@ class Home():
         self.passwin=Tk()
         self.passwin.lift()
         self.passwin.attributes('-topmost', True)
-        self.passwin.geometry("325x400")
+        self.passwin.geometry(WINDOW_DIM)
         self.passwin.resizable(False,False)
         self.passwin.config(bg="light green")
         self.setwin.destroy()
