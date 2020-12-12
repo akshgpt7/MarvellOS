@@ -385,12 +385,21 @@ class Home():
         self.img=PhotoImage(file="sample_pictures/sample1.gif")
         self.pics=Label(self.samwin, width = 325, image=self.img, bg="black", height = 300)
         self.pics.place(x=0,y=0)
-        self.nxt=Button(self.samwin,text=">", bg="yellow", font=("Bauhaus 93",20),command=self.nxt)
+        self.nxt=Button(self.samwin,text=">", bg="yellow", font=("Bauhaus 93",20),command=self.nxtfun)
         self.nxt.place(x=280,y=310)
-        self.bck=Button(self.samwin,text="<", bg="yellow", font=("Bauhaus 93",20),command=self.bck, state=DISABLED)
+        self.bck=Button(self.samwin,text="<", bg="yellow", font=("Bauhaus 93",20),command=self.bckfun, state=DISABLED)
         self.bck.place(x=10,y=310)
         self.i=1
-    def nxt(self):
+        self.samwin.bind('<Left>', self.lkey)
+        self.samwin.bind('<Right>', self.rkey)
+
+    def lkey(self, event):
+        self.bckfun()
+
+    def rkey(self, event):
+        self.nxtfun()
+
+    def nxtfun(self):
         self.i+=1
         self.bck["state"]="normal"
         if self.i==1:
@@ -415,7 +424,7 @@ class Home():
             self.img = PhotoImage(file="sample_pictures/sample10.gif")
             self.nxt["state"]=DISABLED
         self.pics["image"]=self.img
-    def bck(self):
+    def bckfun(self):
         self.i-=1
         self.nxt["state"]="normal"
         if self.i==1:
