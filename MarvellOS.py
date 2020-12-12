@@ -577,44 +577,54 @@ class Home():
             self.homebtn.place(x=140,y=370)
             self.num=Entry(self.calcwin,width=18,font=("Arial black",20))
             self.num.place(x=0,y=10)
+            self.num.focus_set()
             self.ans=Label(self.calcwin,bg="light green", width=17,fg="black",font=("Arial black",20))
             self.ans.place(x=0,y=60)
-            self.plus=Button(self.calcwin,text="+",font=("Elephant",20), command=self.plus)
-            self.plus.config(width=3)
-            self.plus.place(x=0,y=120)
-            self.minus=Button(self.calcwin,text="-",font=("Elephant",20), command=self.minus)
-            self.minus.config(width=3)
-            self.minus.place(x=85,y=120)
-            self.mult=Button(self.calcwin,text="x",font=("Elephant",20), command=self.mult)
-            self.mult.config(width=3)
-            self.mult.place(x=170,y=120)
-            self.div=Button(self.calcwin,text="/",font=("Elephant",20), command=self.div)
-            self.div.config(width=3)
-            self.div.place(x=255,y=120)
-            self.sqroot=Button(self.calcwin,text="sqrt",font=("Elephant",20), command=self.sqroot)
-            self.sqroot.config(height=1,width=3)
-            self.sqroot.place(x=0,y=200)
-            self.fact=Button(self.calcwin,text="!",font=("Elephant",20), command=self.fact)
-            self.fact.config(width=3)
-            self.fact.place(x=85,y=200)
-            self.power=Button(self.calcwin,text="x^y",font=("Elephant",20), command=self.power)
-            self.power.config(height=1,width=3)
-            self.power.place(x=170,y=200)
-            self.c=Button(self.calcwin,text="C",font=("Elephant",20), command=self.c)
-            self.c.config(height=1,width=3)
-            self.c.place(x=255,y=200)
-            self.sin=Button(self.calcwin,text="sin",font=("Elephant",20), command=self.sin)
-            self.sin.config(height=1,width=3)
-            self.sin.place(x=0,y=280)
-            self.cos=Button(self.calcwin,text="cos",font=("Elephant",20), command=self.cos)
-            self.cos.config(height=1,width=3)
-            self.cos.place(x=85,y=280)
-            self.tan=Button(self.calcwin,text="tan",font=("Elephant",20), command=self.tan)
-            self.tan.config(height=1,width=3)
-            self.tan.place(x=170,y=280)
-            self.equal=Button(self.calcwin,text="=",font=("Elephant",20), command=self.equal)
-            self.equal.config(width=3)
-            self.equal.place(x=255,y=280)
+            self.plus_btn=Button(self.calcwin,text="+",font=("Elephant",20), command=self.plus)
+            self.plus_btn.config(width=3)
+            self.plus_btn.place(x=0,y=120)
+            self.calcwin.bind("+",self.plus)
+            self.minus_btn=Button(self.calcwin,text="-",font=("Elephant",20), command=self.minus)
+            self.minus_btn.config(width=3)
+            self.minus_btn.place(x=85,y=120)
+            self.calcwin.bind("-",self.minus)
+            self.mult_btn=Button(self.calcwin,text="x",font=("Elephant",20), command=self.mult)
+            self.mult_btn.config(width=3)
+            self.mult_btn.place(x=170,y=120)
+            self.calcwin.bind("*",self.mult)
+            self.div_btn=Button(self.calcwin,text="/",font=("Elephant",20), command=self.div)
+            self.div_btn.config(width=3)
+            self.div_btn.place(x=255,y=120)
+            self.calcwin.bind("/",self.div)
+            self.sqroot_btn=Button(self.calcwin,text="sqrt",font=("Elephant",20), command=self.sqroot)
+            self.sqroot_btn.config(height=1,width=3)
+            self.sqroot_btn.place(x=0,y=200)
+            self.fact_btn=Button(self.calcwin,text="!",font=("Elephant",20), command=self.fact)
+            self.fact_btn.config(width=3)
+            self.fact_btn.place(x=85,y=200)
+            self.calcwin.bind("!",self.fact)
+            self.power_btn=Button(self.calcwin,text="x^y",font=("Elephant",20), command=self.power)
+            self.power_btn.config(height=1,width=3)
+            self.power_btn.place(x=170,y=200)
+            self.calcwin.bind("^",self.power)
+            self.clr_btn=Button(self.calcwin,text="C",font=("Elephant",20), command=self.c)
+            self.clr_btn.config(height=1,width=3)
+            self.clr_btn.place(x=255,y=200)
+            self.calcwin.bind("<Delete>",self.c)
+            self.sin_btn=Button(self.calcwin,text="sin",font=("Elephant",20), command=self.sin)
+            self.sin_btn.config(height=1,width=3)
+            self.sin_btn.place(x=0,y=280)
+            self.cos_btn=Button(self.calcwin,text="cos",font=("Elephant",20), command=self.cos)
+            self.cos_btn.config(height=1,width=3)
+            self.cos_btn.place(x=85,y=280)
+            self.tan_btn=Button(self.calcwin,text="tan",font=("Elephant",20), command=self.tan)
+            self.tan_btn.config(height=1,width=3)
+            self.tan_btn.place(x=170,y=280)
+            self.equal_btn=Button(self.calcwin,text="=",font=("Elephant",20), command=self.equal)
+            self.equal_btn.config(width=3)
+            self.equal_btn.place(x=255,y=280)
+            self.calcwin.bind("<Return>",self.equal)
+            
         except TypeError as e:
             self.ans["text"]="Invalid Input "
         except ValueError as e:
@@ -622,23 +632,39 @@ class Home():
         except OverflowError as e:
             self.ans["text"]="Out of range"
     try:
-        def plus(self):
-            self.a=self.num.get()
+        def plus(self,event=None):
+            self.v=self.num.get()
+            if "+" in self.v:
+               self.a=self.v[:-1]
+            else:
+                self.a=self.v
             self.num.delete(0,END)
             self.num.focus_set()
             self.operator="+"
-        def minus(self):
-            self.a=self.num.get()
+        def minus(self,event=None):
+            self.v=self.num.get()
+            if "-" in self.v:
+               self.a=self.v[:-1]
+            else:
+                self.a=self.v
             self.num.delete(0,END)
             self.num.focus_set()
             self.operator="-"
-        def mult(self):
-            self.a=self.num.get()
+        def mult(self,event=None):
+            self.v=self.num.get()
+            if "*" in self.v:
+               self.a=self.v[:-1]
+            else:
+                self.a=self.v
             self.num.delete(0,END)
             self.num.focus_set()
             self.operator="x"
-        def div(self):
-            self.a=self.num.get()
+        def div(self,event=None):
+            self.v=self.num.get()
+            if "/" in self.v:
+               self.a=self.v[:-1]
+            else:
+                self.a=self.v
             self.num.delete(0,END)
             self.num.focus_set()
             self.operator="/"
@@ -656,9 +682,13 @@ class Home():
             except OverflowError as e:
                 self.ans["text"]="Out of range"
 
-        def fact(self):
+        def fact(self,event=None):
             try:
-                self.a=self.num.get()
+                self.v=self.num.get()
+                if "!" in self.v:
+                   self.a=self.v[:-1]
+                else:
+                    self.a=self.v
                 if float(self.a)>=0:
                     self.an=str(math.factorial(float(self.a)))
                     self.ans["text"]=self.an
@@ -672,14 +702,19 @@ class Home():
                 self.ans["text"]="Invalid Input "
             except OverflowError as e:
                 self.ans["text"]="Out of range"
-        def power(self):
-            self.a=self.num.get()
+        def power(self,event=None):
+            self.v=self.num.get()
+            if "^" in self.v:
+               self.a=self.v[:-1]
+            else:
+                self.a=self.v
             self.num.delete(0,END)
             self.num.focus_set()
             self.operator="^"
         def sin(self):
             try:
-                self.a=float(self.num.get())/57.2958
+                self.a=self.num.get()
+                self.a=float(self.a)/57.2958
                 self.an=str(math.sin(float(self.a)))
                 self.ans["text"]=self.an
                 if len(self.an)>17:
@@ -692,7 +727,8 @@ class Home():
                 self.ans["text"]="Out of range"
         def cos(self):
             try:
-                self.a=float(self.num.get())/57.2958
+                self.a=self.num.get()
+                self.a=float(self.a)/57.2958
                 self.an=str(math.cos(float(self.a)))
                 self.ans["text"]=self.an
                 if len(self.an)>17:
@@ -705,7 +741,8 @@ class Home():
                 self.ans["text"]="Out of range"
         def tan(self):
             try:
-                self.a=float(self.num.get())/57.2958
+                self.a=self.num.get()
+                self.a=float(self.a)/57.2958
                 self.an=str(math.tan(float(self.a)))
                 self.ans["text"]=self.an
                 if len(self.an)>17:
@@ -716,13 +753,13 @@ class Home():
                 self.ans["text"]="Invalid Input "
             except OverflowError as e:
                 self.ans["text"]="Out of range"
-        def c(self):
+        def c(self,event=None):
             """clear button for calculator"""
             self.a=0
             self.b=0
             self.num.delete(0,END)
             self.ans["text"]=""
-        def equal(self):
+        def equal(self,event=None):
             try:
                 self.b=self.num.get()
                 if self.operator=="+":
@@ -763,14 +800,14 @@ class Home():
             except TypeError as e:
                 self.ans["text"]="Invalid Input "
             except OverflowError as e:
-                self.ans["text"]="Out of range"
+                self.ans["text"]="Out of range"          
     except ValueError as e:
         self.ans["text"]="Invalid Input "+e.message
     except TypeError as e:
         self.ans["text"]="Invalid Input "+e.message
     except OverflowError as e:
                 self.ans["text"]="Out of range"
-
+     
     """Changing password"""
     def next(self):
             global password
