@@ -611,6 +611,7 @@ class Home():
             self.clr_btn.config(height=1,width=3)
             self.clr_btn.place(x=255,y=200)
             self.calcwin.bind("<Delete>",self.c)
+            self.calcwin.bind("c",self.c)
             self.sin_btn=Button(self.calcwin,text="sin",font=("Elephant",20), command=self.sin)
             self.sin_btn.config(height=1,width=3)
             self.sin_btn.place(x=0,y=280)
@@ -689,8 +690,8 @@ class Home():
                    self.a=self.v[:-1]
                 else:
                     self.a=self.v
-                if float(self.a)>=0:
-                    self.an=str(math.factorial(float(self.a)))
+                if int(self.a)>=0:
+                    self.an=str(math.factorial(int(self.a)))
                     self.ans["text"]=self.an
                     if len(self.an)>17:
                         self.ans["text"]="Out of Range"
@@ -800,14 +801,14 @@ class Home():
             except TypeError as e:
                 self.ans["text"]="Invalid Input "
             except OverflowError as e:
-                self.ans["text"]="Out of range"          
+                self.ans["text"]="Out of range"
     except ValueError as e:
         self.ans["text"]="Invalid Input "+e.message
     except TypeError as e:
         self.ans["text"]="Invalid Input "+e.message
     except OverflowError as e:
                 self.ans["text"]="Out of range"
-     
+    
     """Changing password"""
     def next(self):
             global password
