@@ -358,7 +358,7 @@ class Home():
         self.notes.place(x=1,y=60)
         self.notes.insert(END,t)
         self.head=Label(self.notepad, text="NOTEPAD",bg=background, width=23,fg="purple",font=("Arial black",15))
-        self.head.place(x=0,y=10)
+        self.head.place(x=0, y=10)
         self.sav=Button(self.notepad,text="Save",command=self.save)
         self.sav.place(x=146,y=340)
 
@@ -394,16 +394,19 @@ class Home():
         self.samwin.bind('<Right>', self.rkey)
 
     def lkey(self, event):
-        self.bckfun()
+        if self.i != 1:
+            self.bckfun()
 
     def rkey(self, event):
-        self.nxtfun()
+        if self.i != 10:
+            self.nxtfun()
 
     def nxtfun(self):
         self.i+=1
         self.bck["state"]="normal"
         if self.i==1:
             self.img = PhotoImage(file="sample_pictures/sample1.gif")
+            self.bck["state"] = DISABLED
         elif self.i==2:
             self.img = PhotoImage(file="sample_pictures/sample2.gif")
         elif self.i==3:
@@ -448,6 +451,7 @@ class Home():
             self.img = PhotoImage(file="sample_pictures/sample9.gif")
         elif self.i==10:
             self.img = PhotoImage(file="sample_pictures/sample10.gif")
+            self.nxt["state"] = DISABLED
         self.pics["image"]=self.img
 
     def design(self):
