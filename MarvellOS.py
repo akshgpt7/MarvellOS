@@ -358,7 +358,7 @@ class Home():
         self.notes.place(x=1,y=60)
         self.notes.insert(END,t)
         self.head=Label(self.notepad, text="NOTEPAD",bg=background, width=23,fg="purple",font=("Arial black",15))
-        self.head.place(x=0,y=10)
+        self.head.place(x=0, y=10)
         self.sav=Button(self.notepad,text="Save",command=self.save)
         self.sav.place(x=146,y=340)
 
@@ -385,16 +385,28 @@ class Home():
         self.img=PhotoImage(file="sample_pictures/sample1.gif")
         self.pics=Label(self.samwin, width = 325, image=self.img, bg="black", height = 300)
         self.pics.place(x=0,y=0)
-        self.nxt=Button(self.samwin,text=">", bg="yellow", font=("Bauhaus 93",20),command=self.nxt)
+        self.nxt=Button(self.samwin,text=">", bg="yellow", font=("Bauhaus 93",20),command=self.nxtfun)
         self.nxt.place(x=280,y=310)
-        self.bck=Button(self.samwin,text="<", bg="yellow", font=("Bauhaus 93",20),command=self.bck, state=DISABLED)
+        self.bck=Button(self.samwin,text="<", bg="yellow", font=("Bauhaus 93",20),command=self.bckfun, state=DISABLED)
         self.bck.place(x=10,y=310)
         self.i=1
-    def nxt(self):
+        self.samwin.bind('<Left>', self.lkey)
+        self.samwin.bind('<Right>', self.rkey)
+
+    def lkey(self, event):
+        if self.i != 1:
+            self.bckfun()
+
+    def rkey(self, event):
+        if self.i != 10:
+            self.nxtfun()
+
+    def nxtfun(self):
         self.i+=1
         self.bck["state"]="normal"
         if self.i==1:
             self.img = PhotoImage(file="sample_pictures/sample1.gif")
+            self.bck["state"] = DISABLED
         elif self.i==2:
             self.img = PhotoImage(file="sample_pictures/sample2.gif")
         elif self.i==3:
@@ -415,7 +427,7 @@ class Home():
             self.img = PhotoImage(file="sample_pictures/sample10.gif")
             self.nxt["state"]=DISABLED
         self.pics["image"]=self.img
-    def bck(self):
+    def bckfun(self):
         self.i-=1
         self.nxt["state"]="normal"
         if self.i==1:
@@ -439,6 +451,7 @@ class Home():
             self.img = PhotoImage(file="sample_pictures/sample9.gif")
         elif self.i==10:
             self.img = PhotoImage(file="sample_pictures/sample10.gif")
+            self.nxt["state"] = DISABLED
         self.pics["image"]=self.img
 
     def design(self):
