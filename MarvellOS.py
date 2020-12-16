@@ -73,9 +73,11 @@ def welcome(o=""):
         if sh==False:
             e["show"]=""
             sh=True
+            shbtn.config(text="Hide")
         elif sh==True:
             e["show"]="*"
             sh=False
+            shbtn.config(text="Show")
 
     def try_again():
         output_label["text"]="Try again."
@@ -126,8 +128,8 @@ def welcome(o=""):
     shbtn=Button(welcome_screen,text="Show",bg="light blue",fg="black",font=("Agency",8),command=show)
     shbtn.place(x=265,y=237)
 
-    confirmbtn=Button(welcome_screen,text="Confirm",bg="cyan",fg="black",font=("Arial black",9),command=confirm, width=20,height=2)                              #confirm button
-    confirmbtn.place(x=71,y=263)
+    confirmbtn=Button(welcome_screen,text="Confirm",bg="cyan",fg="black",font=("Arial black",9),command=confirm)                              #confirm button
+    confirmbtn.place(x=145,y=263)
     welcome_screen.bind("<Return>", confirm) #Binding Enter key for login confirmation
 
     welcome_frame=Frame(welcome_screen, relief=RIDGE, borderwidth=2)
@@ -135,17 +137,17 @@ def welcome(o=""):
 
     enterpass=Label(welcome_screen,text="Enter password:",font=("Century"),bg=background,fg="black")
     enterpass.place(x=96,y=215)
-    e=Entry(welcome_screen,show="*",width=30)
+    e=Entry(welcome_screen,show="*", width=27)
     e.focus_set()                                                                                                                            #password entry field
-    e.place(x=45,y=240)
+    e.place(x=90,y=240)
 
     output_label=Label(welcome_screen,bg="red",fg="black",width=41,font=("Calibri",12))              #output label
 
     """--------------------------------------------VERSION UPDATE LABEL-------------------------------------------"""
     t="MarvellOS v1.3"
 
-    inf=Label(welcome_screen,text=t,bg=background,fg="red",font=("Century",10,"bold"))
-    inf.place(x=10,y=355)
+    inf=Label(welcome_screen,text=t,bg=background,fg="red",font=("Century",8,"bold"))
+    inf.place(x=2,y=380)
     """Clock on the home screen"""
     global clock
     clock = Label(welcome_screen,font=("TIMES NEW ROMAN",10),anchor="e", bg='black',fg="white",width=46,height=2)                     #clock label
@@ -863,9 +865,11 @@ class Home():
         if self.sh==False:
             self.ent["show"]=""
             self.sh=True
+            self.show.config(text="Hide")
         elif self.sh==True:
             self.ent["show"]="*"
             self.sh=False
+            self.show.config(text="Show")
 
     """Home buttons for all screens"""
     def home_button1(self):
