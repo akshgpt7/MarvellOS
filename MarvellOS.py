@@ -128,18 +128,18 @@ def welcome(o=""):
     shbtn=Button(welcome_screen,text="Show",bg="light blue",fg="black",font=("Agency",8),command=show)
     shbtn.place(x=265,y=237)
 
-    confirmbtn=Button(welcome_screen,text="Confirm",bg="cyan",fg="black",font=("Arial black",9),command=confirm)                              #confirm button
-    confirmbtn.place(x=145,y=263)
+    confirmbtn=Button(welcome_screen,text="Confirm",bg="cyan",fg="black",font=("Arial black",10),command=confirm, width=14, height=2)                              #confirm button
+    confirmbtn.place(x=100,y=263)
     welcome_screen.bind("<Return>", confirm) #Binding Enter key for login confirmation
 
     welcome_frame=Frame(welcome_screen, relief=RIDGE, borderwidth=2)
     welcome_frame.pack()
 
     enterpass=Label(welcome_screen,text="Enter password:",font=("Century"),bg=background,fg="black")
-    enterpass.place(x=96,y=215)
-    e=Entry(welcome_screen,show="*", width=27)
+    enterpass.place(x=90,y=215)
+    e=Entry(welcome_screen,show="*", width=30)
     e.focus_set()                                                                                                                            #password entry field
-    e.place(x=90,y=240)
+    e.place(x=70,y=240)
 
     output_label=Label(welcome_screen,bg="red",fg="black",width=41,font=("Calibri",12))              #output label
 
