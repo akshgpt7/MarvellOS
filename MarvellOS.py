@@ -567,7 +567,7 @@ class Home:
         home.after_cancel(Home.AFTER)
         home.destroy()
         self.samwin = Tk()
-        self.samwin.title("Images")
+        self.samwin.title("Sample Pictures")
         self.samwin.lift()
         self.samwin.attributes("-topmost", True)
         self.samwin.geometry(WINDOW_DIM)
