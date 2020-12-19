@@ -225,7 +225,7 @@ class Home:
         self.time1 = ""
         self.a = a
         home = Tk()
-        home.title("home")
+        home.title("Home")
         home.geometry(WINDOW_DIM)
         home.resizable(False, False)
         home.config(bg=background)
@@ -360,6 +360,7 @@ class Home:
         """Called when Settings button is pressed"""
         global background
         self.setwin = Tk()
+        self.setwin.title("Settings")
         self.setwin.lift()
         self.setwin.attributes("-topmost", True)
         self.setwin.geometry(WINDOW_DIM)
@@ -425,6 +426,7 @@ class Home:
         """Calls when click button is pressed"""
         global background
         self.clickwin = Tk()
+        self.clickwin.title("Click Game")
         self.clickwin.lift()
         self.clickwin.attributes("-topmost", True)
         self.clickwin.geometry(WINDOW_DIM)
@@ -520,6 +522,7 @@ class Home:
         """Called when notepad button is pressed"""
         global background
         self.notepad = Tk()
+        self.notepad.title("Notepad")
         f = open("data/notes.txt", "r+")
         t = f.read()
         self.notepad.lift()
@@ -664,6 +667,7 @@ class Home:
     def design(self):
         """Called when Designs button is pressed"""
         self.deswin = Tk()
+        self.deswin.title("Designs")
         self.deswin.lift()
         self.deswin.attributes("-topmost", True)
         self.deswin.geometry(WINDOW_DIM)
@@ -706,6 +710,7 @@ class Home:
     def des1(self):
         self.deswin.destroy()
         self.deswin = Tk()
+        self.deswin.title("Designs")
         self.deswin.lift()
         self.deswin.attributes("-topmost", True)
         self.deswin.geometry(WINDOW_DIM)
@@ -729,6 +734,7 @@ class Home:
     def des2(self):
         self.deswin.destroy()
         self.deswin = Tk()
+        self.deswin.title("Designs")
         self.deswin.lift()
         self.deswin.attributes("-topmost", True)
         self.deswin.geometry(WINDOW_DIM)
@@ -760,6 +766,7 @@ class Home:
     def des3(self):
         self.deswin.destroy()
         self.deswin = Tk()
+        self.deswin.title("Designs")
         self.deswin.lift()
         self.deswin.attributes("-topmost", True)
         self.deswin.geometry(WINDOW_DIM)
@@ -783,6 +790,7 @@ class Home:
     def des4(self):
         self.deswin.destroy()
         self.deswin = Tk()
+        self.deswin.title("Designs")
         self.deswin.lift()
         self.deswin.attributes("-topmost", True)
         self.deswin.geometry(WINDOW_DIM)
@@ -813,6 +821,7 @@ class Home:
         try:
             global background
             self.calcwin = Tk()
+            self.calcwin.title("Calculator")
             self.calcwin.lift()
             self.calcwin.attributes("-topmost", True)
             self.calcwin.geometry(WINDOW_DIM)
@@ -1158,6 +1167,7 @@ class Home:
         """Called when Change password button is pressed"""
         global password
         self.passwin = Tk()
+        self.passwin.title("Settings")
         self.passwin.lift()
         self.passwin.attributes("-topmost", True)
         self.passwin.geometry(WINDOW_DIM)
