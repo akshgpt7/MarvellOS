@@ -1245,9 +1245,9 @@ class Home:
             except OverflowError:
                 self.ans["text"] = "Out of range"
 
-    except ValueError:
+    except ValueError as e:
         self.ans["text"] = "Invalid Input " + e.message
-    except TypeError:
+    except TypeError as e:
         self.ans["text"] = "Invalid Input " + e.message
     except OverflowError:
         self.ans["text"] = "Out of range"
