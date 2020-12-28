@@ -48,7 +48,7 @@ def tick():
     if time2 != time1:
         time1 = time2
         clock.config(text=day + "      " + time2 + "  ")
-    if truth == True:
+    if truth:
         try:
             AFTER = welcome_screen.after(200, tick)
         except:
@@ -75,11 +75,11 @@ def welcome(o=""):
 
     def show():
         global sh
-        if sh == False:
+        if ~sh:
             e["show"] = ""
             sh = True
             shbtn.config(text="Hide")
-        elif sh == True:
+        elif sh:
             e["show"] = "*"
             sh = False
             shbtn.config(text="Show")
@@ -1206,11 +1206,11 @@ class Home:
         self.sh = False
 
     def show(self):
-        if self.sh == False:
+        if ~self.sh:
             self.ent["show"] = ""
             self.sh = True
             self.show.config(text="Hide")
-        elif self.sh == True:
+        elif ~self.sh:
             self.ent["show"] = "*"
             self.sh = False
             self.show.config(text="Show")
