@@ -1,5 +1,5 @@
 import math
-from time import *
+from time import asctime, strftime, sleep
 import threading
 import turtle
 from threading import Thread
