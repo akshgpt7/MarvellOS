@@ -1056,11 +1056,11 @@ class Home:
             self.equal_btn.place(x=255, y=280)
             self.calcwin.bind("<Return>", self.equal)
 
-        except TypeError as e:
+        except TypeError:
             self.ans["text"] = "Invalid Input "
-        except ValueError as e:
+        except ValueError:
             self.ans["text"] = "Invalid Input "
-        except OverflowError as e:
+        except OverflowError:
             self.ans["text"] = "Out of range"
 
     try:
@@ -1112,11 +1112,11 @@ class Home:
                     self.ans["text"] = math.sqrt(float(self.a))
                 else:
                     self.ans["text"] = "Not a real number"
-            except ValueError as e:
+            except ValueError:
                 self.ans["text"] = "Invalid Input "
-            except TypeError as e:
+            except TypeError:
                 self.ans["text"] = "Invalid Input "
-            except OverflowError as e:
+            except OverflowError:
                 self.ans["text"] = "Out of range"
 
         def fact(self, event=None):
@@ -1133,11 +1133,11 @@ class Home:
                         self.ans["text"] = "Out of Range"
                 else:
                     self.ans["text"] = "Error"
-            except ValueError as e:
+            except ValueError:
                 self.ans["text"] = "Invalid Input "
-            except TypeError as e:
+            except TypeError:
                 self.ans["text"] = "Invalid Input "
-            except OverflowError as e:
+            except OverflowError:
                 self.ans["text"] = "Out of range"
 
         def power(self, event=None):
@@ -1158,11 +1158,11 @@ class Home:
                 self.ans["text"] = self.an
                 if len(self.an) > 17:
                     self.ans["text"] = "Out of Range"
-            except ValueError as e:
+            except ValueError:
                 self.ans["text"] = "Invalid Input "
-            except TypeError as e:
+            except TypeError:
                 self.ans["text"] = "Invalid Input "
-            except OverflowError as e:
+            except OverflowError:
                 self.ans["text"] = "Out of range"
 
         def cos(self):
@@ -1173,11 +1173,11 @@ class Home:
                 self.ans["text"] = self.an
                 if len(self.an) > 17:
                     self.ans["text"] = "Out of Range"
-            except ValueError as e:
+            except ValueError:
                 self.ans["text"] = "Invalid Input "
-            except TypeError as e:
+            except TypeError:
                 self.ans["text"] = "Invalid Input "
-            except OverflowError as e:
+            except OverflowError:
                 self.ans["text"] = "Out of range"
 
         def tan(self):
@@ -1188,11 +1188,11 @@ class Home:
                 self.ans["text"] = self.an
                 if len(self.an) > 17:
                     self.ans["text"] = "Out of Range"
-            except ValueError as e:
+            except ValueError:
                 self.ans["text"] = "Invalid Input "
-            except TypeError as e:
+            except TypeError:
                 self.ans["text"] = "Invalid Input "
-            except OverflowError as e:
+            except OverflowError:
                 self.ans["text"] = "Out of range"
 
         def c(self, event=None):
@@ -1238,18 +1238,18 @@ class Home:
                             self.ans["text"] = "Out of Range"
                     else:
                         self.ans["text"] = "Not a number"
-            except ValueError as e:
+            except ValueError:
                 self.ans["text"] = "Invalid Input "
-            except TypeError as e:
+            except TypeError:
                 self.ans["text"] = "Invalid Input "
-            except OverflowError as e:
+            except OverflowError:
                 self.ans["text"] = "Out of range"
 
-    except ValueError as e:
+    except ValueError:
         self.ans["text"] = "Invalid Input " + e.message
-    except TypeError as e:
+    except TypeError:
         self.ans["text"] = "Invalid Input " + e.message
-    except OverflowError as e:
+    except OverflowError:
         self.ans["text"] = "Out of range"
 
     """Changing password"""
@@ -1265,12 +1265,12 @@ class Home:
                 self.f = open("data/password.txt", "r+")
                 self.ent.delete(0, END)
                 self.ent.focus_set()
-                self.l["text"] = "Enter new password:"
+                self.lb["text"] = "Enter new password:"
             elif self.prev != password:
                 self.k["text"] = "Incorrect password, cannot change."
                 self.k.place(x=0, y=260)
                 self.next["text"] = "Retry"
-                self.l["text"] = "Enter previous password:"
+                self.lb["text"] = "Enter previous password:"
                 self.ent.delete(0, END)
                 self.ent.focus_set()
                 self.co = 1
@@ -1278,7 +1278,7 @@ class Home:
             self.new_p = self.ent.get()
             self.ent.delete(0, END)
             self.ent.focus_set()
-            self.l["text"] = "Confirm new password:"
+            self.lb["text"] = "Confirm new password:"
             self.co = 3
         elif self.co == 3:
             self.confirm = self.ent.get()
@@ -1288,14 +1288,14 @@ class Home:
                 self.f.close()
                 self.ent.delete(0, END)
                 password = self.confirm
-                self.l["text"] = "Password changed!"
+                self.lb["text"] = "Password changed!"
                 self.k["text"] = "Password changed!"
                 self.co = 1
             else:
                 self.k["text"] = "Passwords do not match, try again."
                 self.k.place(x=0, y=260)
                 self.next["text"] = "Retry"
-                self.l["text"] = "Enter previous password:"
+                self.lb["text"] = "Enter previous password:"
                 self.ent.delete(0, END)
                 self.ent.focus_set()
                 self.co = 1
@@ -1332,14 +1332,14 @@ class Home:
         )
         self.next.place(x=100, y=200)
         self.next.config(width=15)
-        self.l = Label(
+        self.lb = Label(
             self.passwin,
             bg="light green",
             text="Enter previous password:",
             font=("Georgia", 12),
             width=30,
         )
-        self.l.place(x=20, y=70)
+        self.lb.place(x=20, y=70)
         self.k = Label(
             self.passwin,
             text="",
