@@ -3,21 +3,8 @@ from time import asctime, strftime, sleep
 import threading
 import turtle
 from tkinter import (
-    END,
-    Tk,
-    Label,
-    Button,
-    Frame,
-    RIDGE,
-    Entry,
-    DISABLED,
-    RIGHT,
-    Text,
-    PhotoImage,
-    Canvas,
-    StringVar,
-    OptionMenu,
-    TOP,
+    END, Tk, Label, Button, Frame, RIDGE, Entry, DISABLED,
+    RIGHT, Text, PhotoImage, Canvas, StringVar, OptionMenu, TOP,
 )
 import base64
 
@@ -120,8 +107,8 @@ def welcome(o=""):
             truth = False
             welcome_screen.after_cancel(AFTER)
             clock = None
-            """Argument "y" tells that welcome screen exists and needs to be de
-            stroyed"""
+            """Argument "y" tells that welcome screen exists and needs to be
+            destroyed"""
             home_screen = Home("y")
         elif p != password:
             tries -= 1
@@ -235,8 +222,8 @@ def welcome(o=""):
 
 
 class Home:
-    """This is the class which makes the app grid screen - If you log in with c
-    orrect password"""
+    """This is the class which makes the app grid screen - If you log in with
+    correct password"""
 
     AFTER = None
 
