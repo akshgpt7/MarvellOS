@@ -91,7 +91,7 @@ def welcome(o=""):
 
     def show():
         global sh
-        if not sh:
+        if ~sh:
             e["show"] = ""
             sh = True
             shbtn.config(text="Hide")
@@ -120,8 +120,8 @@ def welcome(o=""):
             truth = False
             welcome_screen.after_cancel(AFTER)
             clock = None
-            """Argument "y" tells that welcome screen exists and needs to be
-            destroyed"""
+            """Argument "y" tells that welcome screen exists and needs to be de
+            stroyed"""
             home_screen = Home("y")
         elif p != password:
             tries -= 1
