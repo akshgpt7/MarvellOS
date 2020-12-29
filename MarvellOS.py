@@ -3,21 +3,8 @@ from time import asctime, strftime, sleep
 import threading
 import turtle
 from tkinter import (
-    END,
-    Tk,
-    Label,
-    Button,
-    Frame,
-    RIDGE,
-    Entry,
-    DISABLED,
-    RIGHT,
-    Text,
-    PhotoImage,
-    Canvas,
-    StringVar,
-    OptionMenu,
-    TOP,
+    END, Tk, Label, Button, Frame, RIDGE, Entry, DISABLED,
+    RIGHT, Text, PhotoImage, Canvas, StringVar, OptionMenu, TOP,
 )
 import base64
 
