@@ -78,7 +78,7 @@ def welcome(o=""):
 
     def show():
         global sh
-        if ~sh:
+        if not sh:
             e["show"] = ""
             sh = True
             shbtn.config(text="Hide")
@@ -1349,11 +1349,11 @@ class Home:
         self.sh = False
 
     def show(self):
-        if ~self.sh:
+        if not self.sh:
             self.ent["show"] = ""
             self.sh = True
             self.show.config(text="Hide")
-        elif ~self.sh:
+        elif not self.sh:
             self.ent["show"] = "*"
             self.sh = False
             self.show.config(text="Show")
