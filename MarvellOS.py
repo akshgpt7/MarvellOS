@@ -49,7 +49,7 @@ def tick():
     if time2 != time1:
         time1 = time2
         clock.config(text=day + "      " + time2 + "  ")
-    if truth == True:
+    if truth is True:
         try:
             AFTER = welcome_screen.after(200, tick)
         except:
@@ -76,11 +76,11 @@ def welcome(o=""):
 
     def show():
         global sh
-        if sh == False:
+        if sh is False:
             e["show"] = ""
             sh = True
             shbtn.config(text="Hide")
-        elif sh == True:
+        elif sh is True:
             e["show"] = "*"
             sh = False
             shbtn.config(text="Show")
@@ -511,7 +511,7 @@ class Home:
         self.bt3.config(state="normal")
         if self.n < 50:
             self.res["text"] = str(self.n) + " clicks in 10 seconds: Bad clicker!"
-        elif 50 <= self.n and self.n < 60:
+        elif self.n <= 50 and self.n < 60:
             self.res["text"] = str(self.n) + " clicks in 10 seconds: Average clicker!"
         elif self.n >= 60 and self.n < 70:
             self.res["text"] = str(self.n) + " clicks in 10 seconds: Master clicker!"
@@ -1207,11 +1207,11 @@ class Home:
         self.sh = False
 
     def show(self):
-        if self.sh == False:
+        if self.sh is False:
             self.ent["show"] = ""
             self.sh = True
             self.show.config(text="Hide")
-        elif self.sh == True:
+        elif self.sh is True:
             self.ent["show"] = "*"
             self.sh = False
             self.show.config(text="Show")
