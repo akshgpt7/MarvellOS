@@ -357,10 +357,10 @@ class Home:
         if time2 != self.time1:
             self.time1 = time2
             self.clock.config(text=day + "      " + time2 + "  ")
-            try:
-                Home.AFTER = home.after(200, self.tick1)
-            except Exception:
-                home.after_cancel(Home.AFTER)
+        try:
+            Home.AFTER = home.after(200, self.tick1)
+        except Exception:
+            home.after_cancel(Home.AFTER)
 
         self.ddate = asctime().split()
         self.day = self.ddate[0] + " " + self.ddate[1] + " " + self.ddate[2]
