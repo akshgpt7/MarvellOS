@@ -60,10 +60,9 @@ def tick():
         welcome_screen.after_cancel(AFTER)
 
 
-"""Function to open WELCOME SCREEN - Login screen that opens when you run."""
-
-
 def welcome(o=""):
+    """Function to open WELCOME SCREEN - Login screen that opens when you run."""
+
     global clock
     global welcome_screen
     global home_screen
@@ -92,9 +91,10 @@ def welcome(o=""):
         confirmbtn["bg"] = "cyan"
         confirmbtn["state"] = "normal"
 
-    """Confirm button function"""
 
-    def confirm(event=None):
+    def confirm(event=None):  
+        """Confirm button function"""
+
         global welcome_screen
         global password
         global tries
@@ -343,9 +343,10 @@ class Home:
 
         home.mainloop()
 
-    """Clock"""
 
     def tick1(self):
+        """Clock"""
+
         global home
         time2 = strftime("%H:%M")
         newday = time2.split(":")
@@ -448,6 +449,7 @@ class Home:
 
     def click_game(self):
         """Calls when click button is pressed"""
+
         global background
         self.clickwin = Tk()
         self.clickwin.title("Click Game")
@@ -565,6 +567,7 @@ class Home:
 
     def notepad(self):
         """Called when notepad button is pressed"""
+
         global background
         self.notepad = Tk()
         self.notepad.title("Notepad")
@@ -611,6 +614,7 @@ class Home:
 
     def sample(self):
         """Called when Sample pictures button is pressed"""
+
         global background
         global home
         home.after_cancel(Home.AFTER)
@@ -720,6 +724,7 @@ class Home:
 
     def design(self):
         """Called when Designs button is pressed"""
+
         self.deswin = Tk()
         self.deswin.title("Designs")
         self.deswin.lift()
@@ -912,6 +917,7 @@ class Home:
 
     def calc(self):
         """Called when Calculator button is pressed"""
+
         try:
             global background
             self.calcwin = Tk()
@@ -1184,6 +1190,7 @@ class Home:
 
         def c(self, event=None):
             """clear button for calculator"""
+
             self.a = 0
             self.b = 0
             self.num.delete(0, END)
@@ -1239,9 +1246,10 @@ class Home:
     except OverflowError:
         self.ans["text"] = "Out of range"
 
-    """Changing password"""
 
     def next(self):
+        """Changing password"""
+
         global password
         if self.co == 1:
             self.next["text"] = "Next"
@@ -1289,6 +1297,7 @@ class Home:
 
     def change_password(self):
         """Called when Change password button is pressed"""
+
         global password
         self.passwin = Tk()
         self.passwin.title("Settings")
@@ -1358,9 +1367,10 @@ class Home:
             self.sh = False
             self.show.config(text="Show")
 
-    """Home buttons for all screens"""
 
     def home_button1(self):
+        """Home buttons for all screens"""
+        
         global home_screen  # home button for calculator
         self.calcwin.destroy()
         home_screen = Home()
