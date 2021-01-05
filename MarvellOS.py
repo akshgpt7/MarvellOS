@@ -1,9 +1,11 @@
 import math
-from time import *
+from time import asctime, strftime, sleep
 import threading
 import turtle
-from threading import Thread
-from tkinter import *
+from tkinter import (
+    END, Tk, Label, Button, Frame, RIDGE, Entry, DISABLED,
+    RIGHT, Text, PhotoImage, Canvas, StringVar, OptionMenu, TOP,
+)
 import base64
 
 WINDOW_DIM = "325x400"
@@ -49,19 +51,18 @@ def tick():
     if time2 != time1:
         time1 = time2
         clock.config(text=day + "      " + time2 + "  ")
-    if truth is True:
+    if truth:
         try:
             AFTER = welcome_screen.after(200, tick)
-        except:
+        except Exception:
             welcome_screen.after_cancel(AFTER)
     else:
         welcome_screen.after_cancel(AFTER)
 
 
-"""Function to open WELCOME SCREEN - Login screen that opens when you run."""
-
-
 def welcome(o=""):
+    """Function to open WELCOME SCREEN - Login screen that opens when you run."""
+
     global clock
     global welcome_screen
     global home_screen
@@ -76,11 +77,11 @@ def welcome(o=""):
 
     def show():
         global sh
-        if sh is False:
+        if not sh:
             e["show"] = ""
             sh = True
             shbtn.config(text="Hide")
-        elif sh is True:
+        elif sh:
             e["show"] = "*"
             sh = False
             shbtn.config(text="Show")
@@ -90,9 +91,10 @@ def welcome(o=""):
         confirmbtn["bg"] = "cyan"
         confirmbtn["state"] = "normal"
 
-    """Confirm button function"""
 
-    def confirm(event=None):
+    def confirm(event=None):  
+        """Confirm button function"""
+
         global welcome_screen
         global password
         global tries
@@ -105,7 +107,8 @@ def welcome(o=""):
             truth = False
             welcome_screen.after_cancel(AFTER)
             clock = None
-            """Argument "y" tells that welcome screen exists and needs to be destroyed"""
+            """Argument "y" tells that welcome screen exists and needs to be
+            destroyed"""
             home_screen = Home("y")
         elif p != password:
             tries -= 1
@@ -163,7 +166,9 @@ def welcome(o=""):
         height=2,
     )  # confirm button
     confirmbtn.place(x=71, y=263)
-    welcome_screen.bind("<Return>", confirm)  # Binding Enter key for login confirmation
+
+    # Binding Enter key for login confirmation
+    welcome_screen.bind("<Return>", confirm)
 
     welcome_frame = Frame(welcome_screen, relief=RIDGE, borderwidth=2)
     welcome_frame.pack()
@@ -184,11 +189,15 @@ def welcome(o=""):
         welcome_screen, bg="red", fg="black", width=41, font=("Calibri", 12)
     )  # output label
 
-    """--------------------------------------------VERSION UPDATE LABEL-------------------------------------------"""
+    """----------------VERSION UPDATE LABEL----------------"""
     t = "MarvellOS v1.3"
 
     inf = Label(
-        welcome_screen, text=t, bg=background, fg="red", font=("Century", 10, "bold")
+        welcome_screen,
+        text=t,
+        bg=background,
+        fg="red",
+        font=("Century", 10, "bold"),
     )
     inf.place(x=10, y=355)
     """Clock on the home screen"""
@@ -206,14 +215,15 @@ def welcome(o=""):
     if truth:
         try:
             tick()
-        except:
+        except Exception:
             welcome_screen.after_cancel(tick)
 
     welcome_screen.mainloop()
 
 
 class Home:
-    """This is the class which makes the app grid screen - If you log in with correct password"""
+    """This is the class which makes the app grid screen - If you log in with
+    correct password"""
 
     AFTER = None
 
@@ -333,21 +343,24 @@ class Home:
 
         home.mainloop()
 
-    """Clock"""
 
     def tick1(self):
+        """Clock"""
+
         global home
         time2 = strftime("%H:%M")
         newday = time2.split(":")
         if newday[0] == "00" and newday[1] == "00":
             self.ddate = asctime().split()
-            self.day = self.ddate[0] + " " + self.ddate[1] + " " + self.ddate[2]
+            self.day = (
+                self.ddate[0] + " " + self.ddate[1] + " " + self.ddate[2]
+            )
         if time2 != self.time1:
             self.time1 = time2
             self.clock.config(text=day + "      " + time2 + "  ")
         try:
             Home.AFTER = home.after(200, self.tick1)
-        except:
+        except Exception:
             home.after_cancel(Home.AFTER)
 
         self.ddate = asctime().split()
@@ -366,7 +379,11 @@ class Home:
         self.setwin.geometry(WINDOW_DIM)
         self.setwin.resizable(False, False)
         self.homebtn = Button(
-            self.setwin, text="HOME", bg="black", fg="white", command=self.home_button7
+            self.setwin,
+            text="HOME",
+            bg="black",
+            fg="white",
+            command=self.home_button7,
         )
         self.homebtn.place(x=140, y=370)
         self.setwin.config(bg=background)
@@ -405,7 +422,13 @@ class Home:
         )
         self.bglab.place(x=100, y=178)
         self.option = OptionMenu(
-            self.setwin, self.var, "yellow", "green", "light blue", "pink", "white"
+            self.setwin,
+            self.var,
+            "yellow",
+            "green",
+            "light blue",
+            "pink",
+            "white",
         )
         self.option.place(x=120, y=200)
         background = self.var.get()
@@ -416,13 +439,16 @@ class Home:
             with open("data/background.txt", "w") as file:
                 file.write(background)
 
-        self.sv = Button(self.setwin, text="Save", command=save1, bg="cyan", fg="black")
+        self.sv = Button(
+            self.setwin, text="Save", command=save1, bg="cyan", fg="black"
+        )
         self.sv.place(x=140, y=235)
 
     """NOT WORKING ON SOME DEVICES"""
 
     def click_game(self):
         """Calls when click button is pressed"""
+
         global background
         self.clickwin = Tk()
         self.clickwin.title("Click Game")
@@ -436,7 +462,11 @@ class Home:
         self.w.config(bg="black", fg="white", font=("broadway", 30))
         self.w.pack(side=TOP)
         self.bt2 = Button(
-            self.clickwin, text="Start timer", height="3", width="8", command=self.timer
+            self.clickwin,
+            text="Start timer",
+            height="3",
+            width="8",
+            command=self.timer,
         )
         self.bt2.config(bg="red")
         self.bt2.pack()
@@ -454,11 +484,19 @@ class Home:
         self.bt.pack()
         self.ans = Label(self.clickwin)
         self.ans.pack()
-        self.res = Label(self.clickwin, text="                                   ")
-        self.res.config(bg="dark green", fg=background, font=("arial narrow", 15))
+        self.res = Label(
+            self.clickwin, text="                                   "
+        )
+        self.res.config(
+            bg="dark green", fg=background, font=("arial narrow", 15)
+        )
         self.res.pack()
         self.bt3 = Button(
-            self.clickwin, text="Reset", height="5", width="8", command=self.reset
+            self.clickwin,
+            text="Reset",
+            height="5",
+            width="8",
+            command=self.reset,
         )
         self.bt3.pack(side=RIGHT)
         global home
@@ -495,11 +533,12 @@ class Home:
         self.tt.config(text="Reset")
 
     def func1(self):
-        try:
-            self.t = threading.Thread(target=self.func2)
-            self.t.start()
-        except:
-            pass
+        # try:
+        self.t = threading.Thread(target=self.func2)
+        self.t.start()
+
+    # except:
+    #    pass
 
     def func2(self):
         for i in range(0, 10):
@@ -509,16 +548,25 @@ class Home:
         self.tt.config(text="Time up")
         self.bt3.config(state="normal")
         if self.n < 50:
-            self.res["text"] = str(self.n) + " clicks in 10 seconds: Bad clicker!"
-        elif self.n <= 50 and self.n < 60:
-            self.res["text"] = str(self.n) + " clicks in 10 seconds: Average clicker!"
+            self.res["text"] = (
+                str(self.n) + " clicks in 10 seconds: Bad clicker!"
+            )
+        elif 50 <= self.n and self.n < 60:
+            self.res["text"] = (
+                str(self.n) + " clicks in 10 seconds: Average clicker!"
+            )
         elif self.n >= 60 and self.n < 70:
-            self.res["text"] = str(self.n) + " clicks in 10 seconds: Master clicker!"
+            self.res["text"] = (
+                str(self.n) + " clicks in 10 seconds: Master clicker!"
+            )
         elif self.n >= 70:
-            self.res["text"] = str(self.n) + " clicks in 10 seconds: Clicking god!"
+            self.res["text"] = (
+                str(self.n) + " clicks in 10 seconds: Clicking god!"
+            )
 
     def notepad(self):
         """Called when notepad button is pressed"""
+
         global background
         self.notepad = Tk()
         self.notepad.title("Notepad")
@@ -533,7 +581,11 @@ class Home:
         home.after_cancel(Home.AFTER)
         home.destroy()
         self.homebtn = Button(
-            self.notepad, text="HOME", bg="black", fg="white", command=self.home_button3
+            self.notepad,
+            text="HOME",
+            bg="black",
+            fg="white",
+            command=self.home_button3,
         )
         self.homebtn.place(x=140, y=370)
         self.notes = Text(
@@ -560,6 +612,7 @@ class Home:
 
     def sample(self):
         """Called when Sample pictures button is pressed"""
+
         global background
         global home
         home.after_cancel(Home.AFTER)
@@ -572,7 +625,11 @@ class Home:
         self.samwin.resizable(False, False)
         self.samwin.config(bg="black")
         self.homebtn = Button(
-            self.samwin, text="HOME", bg="white", fg="black", command=self.home_button6
+            self.samwin,
+            text="HOME",
+            bg="white",
+            fg="black",
+            command=self.home_button6,
         )
         self.homebtn.place(x=140, y=370)
         self.img = PhotoImage(file="sample_pictures/sample1.gif")
@@ -665,6 +722,7 @@ class Home:
 
     def design(self):
         """Called when Designs button is pressed"""
+
         self.deswin = Tk()
         self.deswin.title("Designs")
         self.deswin.lift()
@@ -676,7 +734,11 @@ class Home:
         home.after_cancel(Home.AFTER)
         home.destroy()
         self.homebtn = Button(
-            self.deswin, text="HOME", bg="white", fg="black", command=self.home_button2
+            self.deswin,
+            text="HOME",
+            bg="white",
+            fg="black",
+            command=self.home_button2,
         )
         self.homebtn.place(x=140, y=370)
         self.choo = Label(
@@ -690,19 +752,31 @@ class Home:
         )
         self.choo.place(x=0, y=10)
         self.des1 = Button(
-            self.deswin, text="Design 1 ", font=("Elephant", 20), command=self.des1
+            self.deswin,
+            text="Design 1 ",
+            font=("Elephant", 20),
+            command=self.des1,
         )
         self.des1.place(x=80, y=80)
         self.des2 = Button(
-            self.deswin, text="Design 2", font=("Elephant", 20), command=self.des2
+            self.deswin,
+            text="Design 2",
+            font=("Elephant", 20),
+            command=self.des2,
         )
         self.des2.place(x=80, y=150)
         self.des3 = Button(
-            self.deswin, text="Design 3", font=("Elephant", 20), command=self.des3
+            self.deswin,
+            text="Design 3",
+            font=("Elephant", 20),
+            command=self.des3,
         )
         self.des3.place(x=80, y=220)
         self.des4 = Button(
-            self.deswin, text="Design 4", font=("Elephant", 20), command=self.des4
+            self.deswin,
+            text="Design 4",
+            font=("Elephant", 20),
+            command=self.des4,
         )
         self.des4.place(x=80, y=290)
 
@@ -716,10 +790,16 @@ class Home:
         self.deswin.config(bg="yellow")
         self.deswin.resizable(False, False)
         self.homebtn = Button(
-            self.deswin, text="HOME", bg="black", fg="white", command=self.home_button2
+            self.deswin,
+            text="HOME",
+            bg="black",
+            fg="white",
+            command=self.home_button2,
         )
         self.homebtn.place(x=140, y=370)
-        self.canvas = Canvas(master=self.deswin, width=325, height=350, bg="black")
+        self.canvas = Canvas(
+            master=self.deswin, width=325, height=350, bg="black"
+        )
         self.t = turtle.RawTurtle(self.canvas)
         self.canvas.place(x=0, y=0)
         colors = ["red", "purple", "blue", "green", "yellow", "orange"]
@@ -740,10 +820,16 @@ class Home:
         self.deswin.resizable(False, False)
         self.deswin.config(bg="yellow")
         self.homebtn = Button(
-            self.deswin, text="HOME", bg="black", fg="white", command=self.home_button2
+            self.deswin,
+            text="HOME",
+            bg="black",
+            fg="white",
+            command=self.home_button2,
         )
         self.homebtn.place(x=140, y=370)
-        self.canvas = Canvas(master=self.deswin, width=325, height=350, bg="black")
+        self.canvas = Canvas(
+            master=self.deswin, width=325, height=350, bg="black"
+        )
         self.t = turtle.RawTurtle(self.canvas)
         self.canvas.place(x=0, y=0)
         for i in range(0, 24):
@@ -772,10 +858,16 @@ class Home:
         self.deswin.resizable(False, False)
         self.deswin.config(bg="yellow")
         self.homebtn = Button(
-            self.deswin, text="HOME", bg="black", fg="white", command=self.home_button2
+            self.deswin,
+            text="HOME",
+            bg="black",
+            fg="white",
+            command=self.home_button2,
         )
         self.homebtn.place(x=140, y=370)
-        self.canvas = Canvas(master=self.deswin, width=325, height=350, bg="black")
+        self.canvas = Canvas(
+            master=self.deswin, width=325, height=350, bg="black"
+        )
         self.t = turtle.RawTurtle(self.canvas)
         self.canvas.place(x=0, y=0)
         for i in range(50):
@@ -796,10 +888,16 @@ class Home:
         self.deswin.resizable(False, False)
         self.deswin.config(bg="yellow")
         self.homebtn = Button(
-            self.deswin, text="HOME", bg="black", fg="white", command=self.home_button2
+            self.deswin,
+            text="HOME",
+            bg="black",
+            fg="white",
+            command=self.home_button2,
         )
         self.homebtn.place(x=140, y=370)
-        self.canvas = Canvas(master=self.deswin, width=325, height=350, bg="black")
+        self.canvas = Canvas(
+            master=self.deswin, width=325, height=350, bg="black"
+        )
         self.t = turtle.RawTurtle(self.canvas)
         self.canvas.place(x=0, y=0)
         self.t.speed(700)
@@ -817,6 +915,7 @@ class Home:
 
     def calc(self):
         """Called when Calculator button is pressed"""
+
         try:
             global background
             self.calcwin = Tk()
@@ -849,19 +948,28 @@ class Home:
             )
             self.ans.place(x=0, y=60)
             self.plus_btn = Button(
-                self.calcwin, text="+", font=("Elephant", 20), command=self.plus
+                self.calcwin,
+                text="+",
+                font=("Elephant", 20),
+                command=self.plus,
             )
             self.plus_btn.config(width=3)
             self.plus_btn.place(x=0, y=120)
             self.calcwin.bind("+", self.plus)
             self.minus_btn = Button(
-                self.calcwin, text="-", font=("Elephant", 20), command=self.minus
+                self.calcwin,
+                text="-",
+                font=("Elephant", 20),
+                command=self.minus,
             )
             self.minus_btn.config(width=3)
             self.minus_btn.place(x=85, y=120)
             self.calcwin.bind("-", self.minus)
             self.mult_btn = Button(
-                self.calcwin, text="x", font=("Elephant", 20), command=self.mult
+                self.calcwin,
+                text="x",
+                font=("Elephant", 20),
+                command=self.mult,
             )
             self.mult_btn.config(width=3)
             self.mult_btn.place(x=170, y=120)
@@ -873,18 +981,27 @@ class Home:
             self.div_btn.place(x=255, y=120)
             self.calcwin.bind("/", self.div)
             self.sqroot_btn = Button(
-                self.calcwin, text="sqrt", font=("Elephant", 20), command=self.sqroot
+                self.calcwin,
+                text="sqrt",
+                font=("Elephant", 20),
+                command=self.sqroot,
             )
             self.sqroot_btn.config(height=1, width=3)
             self.sqroot_btn.place(x=0, y=200)
             self.fact_btn = Button(
-                self.calcwin, text="!", font=("Elephant", 20), command=self.fact
+                self.calcwin,
+                text="!",
+                font=("Elephant", 20),
+                command=self.fact,
             )
             self.fact_btn.config(width=3)
             self.fact_btn.place(x=85, y=200)
             self.calcwin.bind("!", self.fact)
             self.power_btn = Button(
-                self.calcwin, text="x^y", font=("Elephant", 20), command=self.power
+                self.calcwin,
+                text="x^y",
+                font=("Elephant", 20),
+                command=self.power,
             )
             self.power_btn.config(height=1, width=3)
             self.power_btn.place(x=170, y=200)
@@ -897,32 +1014,44 @@ class Home:
             self.calcwin.bind("<Delete>", self.c)
             self.calcwin.bind("c", self.c)
             self.sin_btn = Button(
-                self.calcwin, text="sin", font=("Elephant", 20), command=self.sin
+                self.calcwin,
+                text="sin",
+                font=("Elephant", 20),
+                command=self.sin,
             )
             self.sin_btn.config(height=1, width=3)
             self.sin_btn.place(x=0, y=280)
             self.cos_btn = Button(
-                self.calcwin, text="cos", font=("Elephant", 20), command=self.cos
+                self.calcwin,
+                text="cos",
+                font=("Elephant", 20),
+                command=self.cos,
             )
             self.cos_btn.config(height=1, width=3)
             self.cos_btn.place(x=85, y=280)
             self.tan_btn = Button(
-                self.calcwin, text="tan", font=("Elephant", 20), command=self.tan
+                self.calcwin,
+                text="tan",
+                font=("Elephant", 20),
+                command=self.tan,
             )
             self.tan_btn.config(height=1, width=3)
             self.tan_btn.place(x=170, y=280)
             self.equal_btn = Button(
-                self.calcwin, text="=", font=("Elephant", 20), command=self.equal
+                self.calcwin,
+                text="=",
+                font=("Elephant", 20),
+                command=self.equal,
             )
             self.equal_btn.config(width=3)
             self.equal_btn.place(x=255, y=280)
             self.calcwin.bind("<Return>", self.equal)
 
-        except TypeError as e:
+        except TypeError:
             self.ans["text"] = "Invalid Input "
-        except ValueError as e:
+        except ValueError:
             self.ans["text"] = "Invalid Input "
-        except OverflowError as e:
+        except OverflowError:
             self.ans["text"] = "Out of range"
 
     try:
@@ -974,11 +1103,11 @@ class Home:
                     self.ans["text"] = math.sqrt(float(self.a))
                 else:
                     self.ans["text"] = "Not a real number"
-            except ValueError as e:
+            except ValueError:
                 self.ans["text"] = "Invalid Input "
-            except TypeError as e:
+            except TypeError:
                 self.ans["text"] = "Invalid Input "
-            except OverflowError as e:
+            except OverflowError:
                 self.ans["text"] = "Out of range"
 
         def fact(self, event=None):
@@ -995,11 +1124,11 @@ class Home:
                         self.ans["text"] = "Out of Range"
                 else:
                     self.ans["text"] = "Error"
-            except ValueError as e:
+            except ValueError:
                 self.ans["text"] = "Invalid Input "
-            except TypeError as e:
+            except TypeError:
                 self.ans["text"] = "Invalid Input "
-            except OverflowError as e:
+            except OverflowError:
                 self.ans["text"] = "Out of range"
 
         def power(self, event=None):
@@ -1020,11 +1149,11 @@ class Home:
                 self.ans["text"] = self.an
                 if len(self.an) > 17:
                     self.ans["text"] = "Out of Range"
-            except ValueError as e:
+            except ValueError:
                 self.ans["text"] = "Invalid Input "
-            except TypeError as e:
+            except TypeError:
                 self.ans["text"] = "Invalid Input "
-            except OverflowError as e:
+            except OverflowError:
                 self.ans["text"] = "Out of range"
 
         def cos(self):
@@ -1035,11 +1164,11 @@ class Home:
                 self.ans["text"] = self.an
                 if len(self.an) > 17:
                     self.ans["text"] = "Out of Range"
-            except ValueError as e:
+            except ValueError:
                 self.ans["text"] = "Invalid Input "
-            except TypeError as e:
+            except TypeError:
                 self.ans["text"] = "Invalid Input "
-            except OverflowError as e:
+            except OverflowError:
                 self.ans["text"] = "Out of range"
 
         def tan(self):
@@ -1050,15 +1179,16 @@ class Home:
                 self.ans["text"] = self.an
                 if len(self.an) > 17:
                     self.ans["text"] = "Out of Range"
-            except ValueError as e:
+            except ValueError:
                 self.ans["text"] = "Invalid Input "
-            except TypeError as e:
+            except TypeError:
                 self.ans["text"] = "Invalid Input "
-            except OverflowError as e:
+            except OverflowError:
                 self.ans["text"] = "Out of range"
 
         def c(self, event=None):
             """clear button for calculator"""
+
             self.a = 0
             self.b = 0
             self.num.delete(0, END)
@@ -1100,23 +1230,24 @@ class Home:
                             self.ans["text"] = "Out of Range"
                     else:
                         self.ans["text"] = "Not a number"
-            except ValueError as e:
+            except ValueError:
                 self.ans["text"] = "Invalid Input "
-            except TypeError as e:
+            except TypeError:
                 self.ans["text"] = "Invalid Input "
-            except OverflowError as e:
+            except OverflowError:
                 self.ans["text"] = "Out of range"
 
     except ValueError as e:
         self.ans["text"] = "Invalid Input " + e.message
     except TypeError as e:
         self.ans["text"] = "Invalid Input " + e.message
-    except OverflowError as e:
+    except OverflowError:
         self.ans["text"] = "Out of range"
 
-    """Changing password"""
 
     def next(self):
+        """Changing password"""
+
         global password
         if self.co == 1:
             self.next["text"] = "Next"
@@ -1127,12 +1258,12 @@ class Home:
                 self.f = open("data/password.txt", "r+")
                 self.ent.delete(0, END)
                 self.ent.focus_set()
-                self.l["text"] = "Enter new password:"
+                self.lb["text"] = "Enter new password:"
             elif self.prev != password:
                 self.k["text"] = "Incorrect password, cannot change."
                 self.k.place(x=0, y=260)
                 self.next["text"] = "Retry"
-                self.l["text"] = "Enter previous password:"
+                self.lb["text"] = "Enter previous password:"
                 self.ent.delete(0, END)
                 self.ent.focus_set()
                 self.co = 1
@@ -1140,7 +1271,7 @@ class Home:
             self.new_p = self.ent.get()
             self.ent.delete(0, END)
             self.ent.focus_set()
-            self.l["text"] = "Confirm new password:"
+            self.lb["text"] = "Confirm new password:"
             self.co = 3
         elif self.co == 3:
             self.confirm = self.ent.get()
@@ -1150,20 +1281,21 @@ class Home:
                 self.f.close()
                 self.ent.delete(0, END)
                 password = self.confirm
-                self.l["text"] = "Password changed!"
+                self.lb["text"] = "Password changed!"
                 self.k["text"] = "Password changed!"
                 self.co = 1
             else:
                 self.k["text"] = "Passwords do not match, try again."
                 self.k.place(x=0, y=260)
                 self.next["text"] = "Retry"
-                self.l["text"] = "Enter previous password:"
+                self.lb["text"] = "Enter previous password:"
                 self.ent.delete(0, END)
                 self.ent.focus_set()
                 self.co = 1
 
     def change_password(self):
         """Called when Change password button is pressed"""
+
         global password
         self.passwin = Tk()
         self.passwin.title("Settings")
@@ -1174,30 +1306,49 @@ class Home:
         self.passwin.config(bg="light green")
         self.setwin.destroy()
         self.homebtn = Button(
-            self.passwin, text="HOME", bg="black", fg="white", command=self.home_button5
+            self.passwin,
+            text="HOME",
+            bg="black",
+            fg="white",
+            command=self.home_button5,
         )
         self.homebtn.place(x=140, y=370)
-        self.ent = Entry(self.passwin, show="*", width=18, font=("Arial black", 20))
+        self.ent = Entry(
+            self.passwin, show="*", width=18, font=("Arial black", 20)
+        )
         self.ent.place(x=0, y=100)
         self.next = Button(
-            self.passwin, text="Next", bg="blue", fg="yellow", command=self.next
+            self.passwin,
+            text="Next",
+            bg="blue",
+            fg="yellow",
+            command=self.next,
         )
         self.next.place(x=100, y=200)
         self.next.config(width=15)
-        self.l = Label(
+        self.lb = Label(
             self.passwin,
             bg="light green",
             text="Enter previous password:",
             font=("Georgia", 12),
             width=30,
         )
-        self.l.place(x=20, y=70)
+        self.lb.place(x=20, y=70)
         self.k = Label(
-            self.passwin, text="", bg="red", fg="pink", font=("Onyx", 20), width=40
+            self.passwin,
+            text="",
+            bg="red",
+            fg="pink",
+            font=("Onyx", 20),
+            width=40,
         )
         self.k.place(x=0, y=260)
         self.show = Button(
-            self.passwin, text="Show", bg="blue", fg="yellow", command=self.show
+            self.passwin,
+            text="Show",
+            bg="blue",
+            fg="yellow",
+            command=self.show,
         )
         self.show.place(x=100, y=150)
         self.show.config(width=15)
@@ -1205,18 +1356,19 @@ class Home:
         self.sh = False
 
     def show(self):
-        if self.sh is False:
+        if not self.sh:
             self.ent["show"] = ""
             self.sh = True
             self.show.config(text="Hide")
-        elif self.sh is True:
+        elif not self.sh:
             self.ent["show"] = "*"
             self.sh = False
             self.show.config(text="Show")
 
-    """Home buttons for all screens"""
 
     def home_button1(self):
+        """Home buttons for all screens"""
+        
         global home_screen  # home button for calculator
         self.calcwin.destroy()
         home_screen = Home()
