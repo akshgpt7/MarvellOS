@@ -436,9 +436,8 @@ class Home:
         def save1():
             global background
             background = self.var.get()
-            f2 = open("data/background.txt", "w")
-            f2.write(background)
-            f2.close()
+            with open("data/background.txt", "w") as file:
+                file.write(background)
 
         self.sv = Button(
             self.setwin, text="Save", command=save1, bg="cyan", fg="black"
@@ -608,9 +607,8 @@ class Home:
 
     def save(self):
         self.text = self.notes.get(0.0, END)
-        f = open("data/notes.txt", "w")
-        f.write(self.text)
-        f.close()
+        with open("data/notes.txt", "w") as file:
+            file.write(self.text)
 
     def sample(self):
         """Called when Sample pictures button is pressed"""
